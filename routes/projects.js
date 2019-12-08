@@ -20,9 +20,9 @@ router.post('/', async (req, res) => {
     }
 
     const result = await putProj(insert.name, insert.owner, insert. deadline) //zawsze undefined
-    console.log(result + ' post request')
+    console.log(result + ' post request') // zwraca undefined post request w konsoli
 
-    await res.send(result + ' post result')
+    await res.send(result + ' post result') // zwraca undefined post request w postman
 });
 
 router.put('/:id', async (req, res) => {
@@ -54,13 +54,13 @@ async function putProj(n, o, d){
         deadline: d
     })
 
-    console.log(insert + ' before save putProj')
+    console.log(insert + ' before save putProj') //nie wywołuje się
 
     await insert.save();
 
-    console.log(insert + ' after save putProj')
+    console.log(insert + ' after save putProj') //nie wywołuje się
 
-    return insert
+    return insert //undefined
 }
 
 async function putProj(id){
