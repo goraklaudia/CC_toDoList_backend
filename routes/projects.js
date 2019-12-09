@@ -42,7 +42,7 @@ router.put('/:id', async (req, res) => {
 
 // DELETE
 router.delete('/:id', async (req, res) => {
-
+    res.status(501).send('Delete request is not implemented. Use Put instead. - 501')
 });
 
 module.exports = router;
