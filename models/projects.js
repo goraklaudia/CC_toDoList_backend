@@ -22,7 +22,7 @@ const Project = mongoose.model('Project', new mongoose.Schema({
         type: String,
         enum: ['In progress','Finished'],
         default: 'In progress',
-        required: true
+        // required: true
     },
     deadline: {
         type: Date,
@@ -35,7 +35,7 @@ function validateProject(project) {
     name: Joi.string().min(3).max(255).required(),
     id_task: Joi.array().items(Joi.number().min(1)),  //.required()),
     owner: Joi.number().min(1).required(),
-    stage: Joi.string().valid('In progress','Finished').required(),
+    stage: Joi.string().valid('In progress','Finished'), //.required(),
     deadline: Joi.date()
   };
 
