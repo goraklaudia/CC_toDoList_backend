@@ -3,15 +3,19 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
-const projects = Project.find()
-
 // SELECT
 router.get('/:owner', async (req, res) => {
+    const selectOne = await Projet.find({ owner: req.params.owner }).sort({ deadline: 1 });
+    if(!selectOne) return res.status(400).send('Invalid request.')
 
+    res.status(200).send(selectOne);
 });
 
-router.get('/:id', async (req, res) => {
-  
+router.get('/:owner/:id', async (req, res) => {
+    const select = await Project.find({ _id: req.params.id, owner: req.params.owner})
+    if(!select) return res.status(400).send('Invalid request.');
+
+    res.status(200).send(select);
 });
 
 // INSERT
@@ -26,18 +30,27 @@ router.post('/', async (req, res) => {
     });
 
     const result = await insert.save();
-
-    result.validate(err => {
-        if(err) res.status(500).send('Internal Server Error - 500')
-        else res.status(200).send('Saved successfully. - 200')
-    })
+    if(result) return res.status(200).send(result);
 
     console.log(result)
 });
 
 // UPDATE
 router.put('/:id', async (req, res) => {
+    const project = await Project.findByIdAndUpdate(req.params.id, {
+        $set: {
+            name: req.body.name,
+            id_task: req.body.id_task,
+            owner: req.body.owner,
+            stage: req.body.stage,
+            deadline: req.body.deadline,
+            isActive: req.body.isActive
+        }
+    }, { new: true });
 
+    res.status(200).send(project);
+
+    console.log(project);
 });
 
 // DELETE

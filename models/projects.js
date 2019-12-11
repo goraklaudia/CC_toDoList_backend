@@ -27,7 +27,11 @@ const Project = mongoose.model('Project', new mongoose.Schema({
     deadline: {
         type: Date,
         default: Date.now
-    } 
+    },
+    isActive: {
+        type: Boolean,
+        default: true
+    }
 }));
 
 function validateProject(project) {
